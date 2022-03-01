@@ -8,40 +8,46 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
+
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.RequestOptions;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 
-public class PokeAdapter extends RecyclerView.Adapter<PokeAdapter.MyViewHolder> {
+public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapter.MyViewHolder> {
 
     Context context;
+    RequestOptions option;
     ArrayList<PokemonModel> pokemonModels;
 
-    public PokeAdapter(Context context, ArrayList<PokemonModel> pokemonModels) {
+    public RecyclerViewAdapter(Context context, ArrayList<PokemonModel> pokemonModels) {
         this.context = context;
         this.pokemonModels = pokemonModels;
+        // Request option for Glide
+        option = new RequestOptions().centerCrop().placeholder(R.drawable.loading_image).error(R.drawable.loading_image);
     }
 
     @NonNull
     @Override
-    public PokeAdapter.MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public RecyclerViewAdapter.MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         // Giving the recycler view the "outline" to recycle
         LayoutInflater inflater = LayoutInflater.from(context);
         View view = inflater.inflate(R.layout.list_recycler, parent, false);
-        return new PokeAdapter.MyViewHolder(view);
+        return new RecyclerViewAdapter.MyViewHolder(view);
     }
 
     @Override
-    public void onBindViewHolder(@NonNull PokeAdapter.MyViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull RecyclerViewAdapter.MyViewHolder holder, int position) {
         // Assigning data/values to recycled view elements
-        holder.listPokeNum.setText(pokemonModels.get(position).getPokeDexNum());
+        holder.listPokeNum.setText(Integer.toString(pokemonModels.get(position).getPokeDexNum()));
         holder.listPokeName.setText(pokemonModels.get(position).getPokeName());
-        Picasso.get().load(pokemonModels.get(position).getPokeImg()).into(holder.listPokeImg);
+        Glide.with(context).load(pokemonModels.get(position).getPokeImg()).apply(option).into(holder.listPokeImg);
     }
 
     @Override
     public int getItemCount() {
-        // The recycler view wants to know how many items are in the list
+        // The recycler view needs to know how many items are in the list
         return pokemonModels.size();
     }
 

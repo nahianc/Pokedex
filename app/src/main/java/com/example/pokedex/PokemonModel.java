@@ -1,13 +1,15 @@
 package com.example.pokedex;
 
 public class PokemonModel {
-    String pokeName, pokeDexNum, pokeDescription, pokeImg;
-    String[] pokeType = new String[2];
-    String[] pokeAbility = new String[3];
-    String[] pokeEvolution = new String[2];
+    int pokeDexNum;
+    String pokeName, pokeDescription, pokeImg;
+    String[] pokeType;
+    String[] pokeAbility;
+    String[] pokeEvolution;
+    int[] pokeStats;
 
-    public PokemonModel(String pokeName, String pokeDexNum, String pokeDescription, String pokeImg,
-                        String[] pokeType, String[] pokeAbility, String[] pokeEvolution) {
+    public PokemonModel(String pokeName, int pokeDexNum, String pokeDescription, String pokeImg,
+                        String[] pokeType, String[] pokeAbility, String[] pokeEvolution, int[] pokeStats) {
         this.pokeName = pokeName;
         this.pokeDexNum = pokeDexNum;
         this.pokeDescription = pokeDescription;
@@ -15,9 +17,10 @@ public class PokemonModel {
         this.pokeType = pokeType;
         this.pokeAbility = pokeAbility;
         this.pokeEvolution = pokeEvolution;
+        this.pokeStats = pokeStats;
     }
 
-    public PokemonModel(String pokeName, String pokeDexNum, String pokeImg) {
+    public PokemonModel(String pokeName, int pokeDexNum, String pokeImg) {
         this.pokeName = pokeName;
         this.pokeDexNum = pokeDexNum;
         this.pokeImg = pokeImg;
@@ -27,7 +30,7 @@ public class PokemonModel {
         return pokeName;
     }
 
-    public String getPokeDexNum() {
+    public int getPokeDexNum() {
         return pokeDexNum;
     }
 
@@ -50,4 +53,5 @@ public class PokemonModel {
     public String[] getPokeEvolution() {
         return pokeEvolution;
     }
+
 }
