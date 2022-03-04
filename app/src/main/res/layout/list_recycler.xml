@@ -3,12 +3,14 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+    android:layout_height="wrap_content"
+    android:paddingTop="5dp">
 
     <androidx.cardview.widget.CardView
         android:id="@+id/pokeItemCardView"
         android:layout_width="407dp"
         android:layout_height="wrap_content"
+        app:cardBackgroundColor="#FDF2F2"
         app:cardCornerRadius="20dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -37,6 +39,8 @@
                 android:layout_marginStart="24dp"
                 android:layout_marginTop="4dp"
                 android:text="Pokemon"
+                android:textSize="20sp"
+                android:textStyle="bold"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/listPokeNum" />
 
@@ -54,9 +58,6 @@
                     android:id="@+id/pokeType1Field"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:paddingLeft="13dp"
-                    android:paddingRight="13dp"
-                    android:text="type_1"
                     android:textAlignment="center"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
@@ -93,9 +94,6 @@
                     android:id="@+id/pokeType2Field"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:paddingLeft="13dp"
-                    android:paddingRight="13dp"
-                    android:text="type_2"
                     android:textAlignment="center" />
             </androidx.cardview.widget.CardView>
 

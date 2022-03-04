@@ -18,7 +18,7 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 
-public class HomeActivity extends AppCompatActivity {
+public class HomeActivity extends AppCompatActivity implements RecyclerViewInterface {
     final String JSON_URL = "https://raw.githubusercontent.com/Purukitto/pokemon-data.json/master/pokedex.json";
     JsonArrayRequest request ;
     RequestQueue requestQueue ;
@@ -29,47 +29,80 @@ public class HomeActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
-
         pokemonModels = new ArrayList<>();
         recyclerView = findViewById(R.id.listRecyclerView);
-        /*
-        TODO:
-        Collect Pokemon data from JSON or API and populate pokemonModels list
-         */
         JSONrequest();
     }
 
     private void JSONrequest() {
-        request = new JsonArrayRequest(JSON_URL, new Response.Listener<JSONArray>() {
-            @Override
-            public void onResponse(JSONArray response) {
+        request = new JsonArrayRequest(JSON_URL, response -> {
 
-                JSONObject jsonObj  = null ;
+            JSONObject pokeObj  = null;
 
-                for (int i = 0 ; i < response.length(); i++ ) {
-                    try {
-                        jsonObj = response.getJSONObject(i) ;
+            for (int i = 0 ; i < response.length(); i++) {
+                try {
+                    System.out.println(i);
+                    pokeObj = response.getJSONObject(i) ;
 
-                        // Parse PokeDex Number
-                        int pokeDexNum = jsonObj.getInt("id");
-                        // Parse Pokemon Name
-                        JSONObject pokeNameJSONObj = jsonObj.getJSONObject("name");
-                        String pokeName = pokeNameJSONObj.getString("english");
-                        // Parse Pokemon Image
-                        String pokeImg = jsonObj.getString("thumbnail");
+                    // Parse PokeDex Number
+                    int dexNum = pokeObj.getInt("id");
 
-                        System.out.println(pokeDexNum + " " + pokeName + " " + pokeImg);
-                        pokemonModels.add(new PokemonModel(pokeName, pokeDexNum, pokeImg));
-                    } catch (JSONException e) {
-                        e.printStackTrace();
+                    // Parse Name
+                    JSONObject nameObj = pokeObj.getJSONObject("name");
+                    String pokeName = nameObj.getString("english");
+
+                    // Parse Image
+                    String imgStr = pokeObj.getString("thumbnail");
+
+                    // Parse Description
+                    String descriptionStr = pokeObj.getString("description");
+
+                    // Parse types
+                    JSONArray typeArr = pokeObj.getJSONArray("type");
+                    String[] pokeType = {"", ""};
+                    for (int j = 0; j < typeArr.length(); j++)
+                        pokeType[j] = typeArr.getString(j);
+
+                    // Parse abilities
+                    JSONArray abilityArr = pokeObj.getJSONObject("profile").getJSONArray("ability");
+                    String[] pokeAbility = {"", "", ""};
+                    for (int j = 0; j < abilityArr .length(); j++)
+                        pokeAbility[j] = abilityArr.getJSONArray(j).getString(0);
+
+                    // Parse evolutions
+                    JSONObject evolutionObj = pokeObj.getJSONObject("evolution");
+                    String[] pokeEvolution = {"", ""};
+                    if (evolutionObj.has("prev") && evolutionObj.getJSONArray("prev").length() > 0) {
+                        pokeEvolution[0] = evolutionObj.getJSONArray("prev").getString(0);
                     }
+                    if (evolutionObj.has("next") && evolutionObj.getJSONArray("next").length() > 0) {
+                        pokeEvolution[1] = evolutionObj.getJSONArray("next").getString(0);
+                    }
+
+                    /*
+                    These section was intended to parse base/stats,
+                    however the JSON stops keeping track of base stats
+                    from entry 810 and onwards.
+
+                    JSONObject statsJSONObj = pokeObj.getJSONObject("base");
+                    int[] pokeStats = { statsJSONObj.getInt("HP"),
+                                        statsJSONObj.getInt("Attack"),
+                                        statsJSONObj.getInt("Defense"),
+                                        statsJSONObj.getInt("Sp. Attack"),
+                                        statsJSONObj.getInt("Sp. Defense"),
+                                        statsJSONObj.getInt("Speed")
+                                      };
+                    */
+
+                    // Create model using parsed data and add to list
+                    pokemonModels.add(new PokemonModel(pokeName, dexNum, descriptionStr, imgStr, pokeType, pokeAbility, pokeEvolution));
+                } catch (JSONException e) {
+                    e.printStackTrace();
                 }
-                feedToRecyclerView(pokemonModels);
             }
-        }, new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError error) {
-            }
+            // After data parsing and list population is complete, feed a populated list to recycler view
+            feedToRecyclerView(pokemonModels);
+        }, error -> {
         });
 
         requestQueue = Volley.newRequestQueue(this);
@@ -78,9 +111,13 @@ public class HomeActivity extends AppCompatActivity {
 
     private void feedToRecyclerView(ArrayList<PokemonModel> pokemonModels) {
         // After list and adapter have been setup, we can send the adapter to the recycler view
-        RecyclerViewAdapter adapter = new RecyclerViewAdapter(this, pokemonModels);
+        RecyclerViewAdapter adapter = new RecyclerViewAdapter(this, pokemonModels, this);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         recyclerView.setAdapter(adapter);
     }
 
+    @Override
+    public void onItemClick(int position) {
+
+    }
 }

@@ -9,7 +9,7 @@ public class PokemonModel {
     int[] pokeStats;
 
     public PokemonModel(String pokeName, int pokeDexNum, String pokeDescription, String pokeImg,
-                        String[] pokeType, String[] pokeAbility, String[] pokeEvolution, int[] pokeStats) {
+                        String[] pokeType, String[] pokeAbility, String[] pokeEvolution) {
         this.pokeName = pokeName;
         this.pokeDexNum = pokeDexNum;
         this.pokeDescription = pokeDescription;
@@ -17,7 +17,6 @@ public class PokemonModel {
         this.pokeType = pokeType;
         this.pokeAbility = pokeAbility;
         this.pokeEvolution = pokeEvolution;
-        this.pokeStats = pokeStats;
     }
 
     public PokemonModel(String pokeName, int pokeDexNum, String pokeImg) {

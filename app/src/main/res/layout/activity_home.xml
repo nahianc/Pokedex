@@ -9,7 +9,7 @@
 
     <TextView
         android:id="@+id/header"
-        android:layout_width="405dp"
+        android:layout_width="match_parent"
         android:layout_height="46dp"
         android:layout_marginTop="4dp"
         android:text="Pokédex"
@@ -21,8 +21,9 @@
 
     <EditText
         android:id="@+id/searchBarField"
-        android:layout_width="405dp"
-        android:layout_height="46dp"
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:autofillHints="android:importantForAutofill=&quot;no&quot;"
         android:ems="10"
         android:hint="Search"
         android:inputType="textPersonName"
