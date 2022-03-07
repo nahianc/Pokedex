@@ -34,66 +34,51 @@
         android:layout_marginStart="16dp"
         android:layout_marginTop="8dp"
         android:text="Pokemon"
+        android:textSize="20sp"
+        android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/detailedPokeNum" />
-
-    <androidx.cardview.widget.CardView
-        android:id="@+id/detailedPokeTypeContainer"
-        android:layout_width="181dp"
-        android:layout_height="21dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="8dp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/detailedPokeName" >
-
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/detailedPokeTypeRecycler"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent" />
-    </androidx.cardview.widget.CardView>
-
-    <androidx.cardview.widget.CardView
-        android:layout_width="match_parent"
-        android:layout_height="579dp"
-        android:layout_marginTop="40dp"
-        app:cardCornerRadius="14dp"
-        app:layout_constraintTop_toBottomOf="@+id/detailedPokeTypeContainer"
-        tools:layout_editor_absoluteX="0dp">
-
-        <com.google.android.material.tabs.TabLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-
-            <com.google.android.material.tabs.TabItem
-                android:id="@+id/aboutTab"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="About" />
-
-            <com.google.android.material.tabs.TabItem
-                android:id="@+id/statsTab"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Stats" />
-
-            <com.google.android.material.tabs.TabItem
-                android:id="@+id/evolutionsTab"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Evolutions" />
-        </com.google.android.material.tabs.TabLayout>
-
-    </androidx.cardview.widget.CardView>
 
     <ImageView
         android:id="@+id/detailedPokeImg"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="32dp"
+        android:layout_marginTop="28dp"
+        android:layout_marginEnd="24dp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.802"
-        app:layout_constraintStart_toEndOf="@+id/detailedPokeName"
         app:layout_constraintTop_toTopOf="parent"
         tools:srcCompat="@tools:sample/avatars" />
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/detailedPokeType1Card"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="8dp"
+        app:cardCornerRadius="20dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/detailedPokeName">
+
+        <TextView
+            android:id="@+id/detailedPokeType1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+    </androidx.cardview.widget.CardView>
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/detailedPokeType2Card"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        app:cardCornerRadius="20dp"
+        app:layout_constraintStart_toEndOf="@+id/detailedPokeType1Card"
+        app:layout_constraintTop_toBottomOf="@+id/detailedPokeName">
+
+        <TextView
+            android:id="@+id/detailedPokeType2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+    </androidx.cardview.widget.CardView>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -4,11 +4,10 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import com.android.volley.RequestQueue;
-import com.android.volley.Response;
-import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.Volley;
 
@@ -18,7 +17,7 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 
-public class HomeActivity extends AppCompatActivity implements RecyclerViewInterface {
+public class ListActivity extends AppCompatActivity implements RecyclerViewAdapter.OnItemClickListener {
     final String JSON_URL = "https://raw.githubusercontent.com/Purukitto/pokemon-data.json/master/pokedex.json";
     JsonArrayRequest request ;
     RequestQueue requestQueue ;
@@ -28,7 +27,7 @@ public class HomeActivity extends AppCompatActivity implements RecyclerViewInter
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_home);
+        setContentView(R.layout.activity_list);
         pokemonModels = new ArrayList<>();
         recyclerView = findViewById(R.id.listRecyclerView);
         JSONrequest();
@@ -83,19 +82,20 @@ public class HomeActivity extends AppCompatActivity implements RecyclerViewInter
                     These section was intended to parse base/stats,
                     however the JSON stops keeping track of base stats
                     from entry 810 and onwards.
-
-                    JSONObject statsJSONObj = pokeObj.getJSONObject("base");
-                    int[] pokeStats = { statsJSONObj.getInt("HP"),
-                                        statsJSONObj.getInt("Attack"),
-                                        statsJSONObj.getInt("Defense"),
-                                        statsJSONObj.getInt("Sp. Attack"),
-                                        statsJSONObj.getInt("Sp. Defense"),
-                                        statsJSONObj.getInt("Speed")
-                                      };
                     */
+                    int[] pokeStats = {0, 0, 0, 0, 0, 0};
+                    if( pokeObj.has("base") ) {
+                        JSONObject statsJSONObj = pokeObj.optJSONObject("base");
+                        pokeStats[0] = statsJSONObj.getInt("HP");
+                        pokeStats[1] = statsJSONObj.getInt("Attack");
+                        pokeStats[2] = statsJSONObj.getInt("Defense");
+                        pokeStats[3] = statsJSONObj.getInt("Sp. Attack");
+                        pokeStats[4] = statsJSONObj.getInt("Sp. Defense");
+                        pokeStats[5] = statsJSONObj.getInt("Speed");
+                    }
 
                     // Create model using parsed data and add to list
-                    pokemonModels.add(new PokemonModel(pokeName, dexNum, descriptionStr, imgStr, pokeType, pokeAbility, pokeEvolution));
+                    pokemonModels.add(new PokemonModel(pokeName, dexNum, descriptionStr, imgStr, pokeType, pokeAbility, pokeEvolution, pokeStats));
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
@@ -118,6 +118,8 @@ public class HomeActivity extends AppCompatActivity implements RecyclerViewInter
 
     @Override
     public void onItemClick(int position) {
-
+        Intent intent = new Intent(this, DetailedActivity.class);
+        intent.putExtra("selected_pokemon", pokemonModels.get(position));
+        startActivity(intent);
     }
 }
