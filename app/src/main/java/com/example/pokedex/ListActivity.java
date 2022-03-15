@@ -40,7 +40,6 @@ public class ListActivity extends AppCompatActivity implements RecyclerViewAdapt
 
             for (int i = 0 ; i < response.length(); i++) {
                 try {
-                    System.out.println(i);
                     pokeObj = response.getJSONObject(i) ;
 
                     // Parse PokeDex Number
@@ -75,7 +74,7 @@ public class ListActivity extends AppCompatActivity implements RecyclerViewAdapt
                         pokeEvolution[0] = evolutionObj.getJSONArray("prev").getString(0);
                     }
                     if (evolutionObj.has("next") && evolutionObj.getJSONArray("next").length() > 0) {
-                        pokeEvolution[1] = evolutionObj.getJSONArray("next").getString(0);
+                        pokeEvolution[1] = evolutionObj.getJSONArray("next").getJSONArray(0).getString(0);
                     }
 
                     /*
@@ -83,7 +82,7 @@ public class ListActivity extends AppCompatActivity implements RecyclerViewAdapt
                     however the JSON stops keeping track of base stats
                     from entry 810 and onwards.
                     */
-                    int[] pokeStats = {0, 0, 0, 0, 0, 0};
+                    int[] pokeStats = {1, 1, 1, 1, 1, 1};
                     if( pokeObj.has("base") ) {
                         JSONObject statsJSONObj = pokeObj.optJSONObject("base");
                         pokeStats[0] = statsJSONObj.getInt("HP");
@@ -96,6 +95,9 @@ public class ListActivity extends AppCompatActivity implements RecyclerViewAdapt
 
                     // Create model using parsed data and add to list
                     pokemonModels.add(new PokemonModel(pokeName, dexNum, descriptionStr, imgStr, pokeType, pokeAbility, pokeEvolution, pokeStats));
+                    System.out.println(dexNum + " " + pokeName);
+                    System.out.println("Pre-Evolution: " + pokeEvolution[0]);
+                    System.out.println("Next-Evolution: " + pokeEvolution[1]);
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
@@ -118,8 +120,14 @@ public class ListActivity extends AppCompatActivity implements RecyclerViewAdapt
 
     @Override
     public void onItemClick(int position) {
+        // Navigate to detailed activity if pokemon from list is clicked
+        PokemonModel currentPokemon = pokemonModels.get(position);
         Intent intent = new Intent(this, DetailedActivity.class);
-        intent.putExtra("selected_pokemon", pokemonModels.get(position));
+        intent.putExtra("selected_pokemon", currentPokemon);
+        if (!currentPokemon.getPokeEvolution()[0].equals(""))
+            intent.putExtra("prev_evolution", pokemonModels.get( Integer.parseInt( currentPokemon.getPokeEvolution()[0])-1));
+        if (!currentPokemon.getPokeEvolution()[1].equals(""))
+            intent.putExtra("next_evolution", pokemonModels.get( Integer.parseInt( currentPokemon.getPokeEvolution()[1])-1));
         startActivity(intent);
     }
 }

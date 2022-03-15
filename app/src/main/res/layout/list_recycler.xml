@@ -10,6 +10,8 @@
         android:id="@+id/pokeItemCardView"
         android:layout_width="407dp"
         android:layout_height="wrap_content"
+        android:backgroundTint="#63D8D8D8"
+        android:backgroundTintMode="src_over"
         app:cardBackgroundColor="#FDF2F2"
         app:cardCornerRadius="20dp"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -22,8 +24,18 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
+            <ImageView
+                android:id="@+id/imageView"
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:layout_marginStart="324dp"
+                android:alpha="0.07"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:srcCompat="@drawable/pokeball_background" />
+
             <TextView
-                android:id="@+id/listPokeNum"
+                android:id="@+id/listNum"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="24dp"
@@ -33,7 +45,7 @@
                 app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
-                android:id="@+id/listPokeName"
+                android:id="@+id/listName"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="24dp"
@@ -42,23 +54,25 @@
                 android:textSize="20sp"
                 android:textStyle="bold"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/listPokeNum" />
+                app:layout_constraintTop_toBottomOf="@+id/listNum" />
 
             <androidx.cardview.widget.CardView
-                android:id="@+id/pokeType1Card"
+                android:id="@+id/listType1Card"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="24dp"
                 android:layout_marginTop="4dp"
                 app:cardCornerRadius="20dp"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/listPokeName">
+                app:layout_constraintTop_toBottomOf="@+id/listName">
 
                 <TextView
-                    android:id="@+id/pokeType1Field"
+                    android:id="@+id/listType1Text"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textAlignment="center"
+                    android:textColor="@color/white"
+                    android:textStyle="bold"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintHorizontal_bias="0.5"
@@ -87,14 +101,16 @@
                 android:layout_marginStart="8dp"
                 android:layout_marginTop="4dp"
                 app:cardCornerRadius="20dp"
-                app:layout_constraintStart_toEndOf="@+id/pokeType1Card"
-                app:layout_constraintTop_toBottomOf="@+id/listPokeName">
+                app:layout_constraintStart_toEndOf="@+id/listType1Card"
+                app:layout_constraintTop_toBottomOf="@+id/listName">
 
                 <TextView
-                    android:id="@+id/pokeType2Field"
+                    android:id="@+id/listType2Text"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textAlignment="center" />
+                    android:textAlignment="center"
+                    android:textColor="@color/white"
+                    android:textStyle="bold" />
             </androidx.cardview.widget.CardView>
 
         </androidx.constraintlayout.widget.ConstraintLayout>

@@ -7,6 +7,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 import androidx.annotation.NonNull;
+import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
@@ -42,18 +43,16 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
     @Override
     public void onBindViewHolder(@NonNull RecyclerViewAdapter.MyViewHolder holder, int position) {
         // Assigning data/values to recycled view elements
+        holder.background.setCardBackgroundColor( getStringIdentifier(context, pokemonModels.get(position).getPokeType()[0]) );
         holder.listPokeNum.setText( "#" + String.format(Locale.US, "%03d", pokemonModels.get(position).getPokeDexNum()) );
         holder.listPokeName.setText(pokemonModels.get(position).getPokeName());
+
         holder.listPokeType1.setText((pokemonModels.get(position).getPokeType())[0]);
-        holder.listPokeType1.setPadding(15, 0, 15, 0);
-        // Apply padding only if model contains second type
-        if ( pokemonModels.get(position).getPokeType()[1].equals("") ) {
-            holder.listPokeType2.setText("");
-            holder.listPokeType2.setPadding(0, 0, 0, 0);
-        } else {
-            holder.listPokeType2.setText((pokemonModels.get(position).getPokeType())[1]);
-            holder.listPokeType2.setPadding(15, 0, 15, 0);
-        }
+        setPaddingAndColor( holder.listPokeType1, holder.type1card, pokemonModels.get(position).getPokeType()[0] );
+
+        holder.listPokeType2.setText((pokemonModels.get(position).getPokeType())[1]);
+        setPaddingAndColor( holder.listPokeType2, holder.type2card, pokemonModels.get(position).getPokeType()[1] );
+
         Glide.with(context)
                 .load(pokemonModels.get(position).getPokeImg()).apply(option)
                 .into(holder.listPokeImg);
@@ -68,15 +67,19 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
         // Grabbing views from the recycler layout file and assigning them to variables
         TextView listPokeNum, listPokeName, listPokeType1, listPokeType2;
         ImageView listPokeImg;
+        CardView type1card, type2card, background;
         OnItemClickListener onItemClickListener;
 
         public MyViewHolder(@NonNull View itemView, OnItemClickListener onItemClickListener) {
             super(itemView);
-            listPokeNum = itemView.findViewById(R.id.listPokeNum);
-            listPokeName = itemView.findViewById(R.id.listPokeName);
-            listPokeType1 = itemView.findViewById(R.id.pokeType1Field);
-            listPokeType2 = itemView.findViewById(R.id.pokeType2Field);
+            background = itemView.findViewById(R.id.pokeItemCardView);
+            listPokeNum = itemView.findViewById(R.id.listNum);
+            listPokeName = itemView.findViewById(R.id.listName);
+            listPokeType1 = itemView.findViewById(R.id.listType1Text);
+            listPokeType2 = itemView.findViewById(R.id.listType2Text);
             listPokeImg = itemView.findViewById(R.id.listPokeImg);
+            type1card = itemView.findViewById(R.id.listType1Card);
+            type2card =itemView.findViewById(R.id.pokeType2Card);
 
             this.onItemClickListener = onItemClickListener;
             itemView.setOnClickListener(this);
@@ -88,9 +91,33 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
         }
     }
 
+    /*
+    Set padding of text view based on text length
+    Empty text field gets 0 padding so it appears invisible on screen
+    Set color of pokemon type card container based on type
+     */
+    void setPaddingAndColor(TextView textView, CardView typeCard, String type) {
+        if (textView.getText().length() > 0) {
+            textView.setPadding(45, 0, 45, 0);
+            if (!type.equals(""))
+                typeCard.setCardBackgroundColor( getStringIdentifier(context, type) );
+        } else if (textView.getText().length() > 4) {
+            textView.setPadding(30, 0, 30, 0);
+            if (!type.equals(""))
+                typeCard.setCardBackgroundColor( getStringIdentifier(context, type) );
+        } else
+            textView.setPadding(0, 0, 0, 0);
+    }
+
+    /*
+    Get color identifier from strings resource file
+    */
+    public static int getStringIdentifier(Context context, String name) {
+        return context.getResources().getColor(context.getResources().getIdentifier(name, "color", context.getPackageName()));
+    }
+
     public interface OnItemClickListener {
         void onItemClick(int position);
     }
-
 
 }

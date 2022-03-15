@@ -2,83 +2,403 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/deatiledActivityLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".DetailActivity">
+    android:background="#FFE3E3"
+    android:backgroundTint="#4FD8D8D8"
+    android:backgroundTintMode="src_over"
+    tools:context=".DetailedActivity">
 
-    <Button
-        android:id="@+id/backButton"
-        android:layout_width="75dp"
-        android:layout_height="40dp"
-        android:layout_marginStart="16dp"
+    <ImageButton
+        android:id="@+id/imageButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
-        android:text="back"
+        android:background="#00FFFFFF"
+        android:contentDescription="back"
+        android:minWidth="48dp"
+        android:minHeight="48dp"
+        android:src="?attr/actionModeCloseDrawable"
         app:cornerRadius="32dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <TextView
-        android:id="@+id/detailedPokeNum"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="12dp"
-        android:text="#000"
+    <ImageView
+        android:id="@+id/backgroundImg"
+        android:layout_width="190dp"
+        android:layout_height="190dp"
+        android:layout_marginStart="256dp"
+        android:layout_marginTop="28dp"
+        android:alpha="0.07"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/backButton" />
-
-    <TextView
-        android:id="@+id/detailedPokeName"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="8dp"
-        android:text="Pokemon"
-        android:textSize="20sp"
-        android:textStyle="bold"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/detailedPokeNum" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/pokeball_background" />
 
     <ImageView
         android:id="@+id/detailedPokeImg"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="28dp"
-        android:layout_marginEnd="24dp"
+        android:layout_width="142dp"
+        android:layout_height="142dp"
+        android:layout_marginTop="16dp"
+        android:contentDescription="pokemon image"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         tools:srcCompat="@tools:sample/avatars" />
 
     <androidx.cardview.widget.CardView
-        android:id="@+id/detailedPokeType1Card"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="8dp"
-        app:cardCornerRadius="20dp"
+        android:id="@+id/detailsCard"
+        android:layout_width="match_parent"
+        android:layout_height="594dp"
+        android:layout_marginTop="16dp"
+        app:cardCornerRadius="30dp"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/detailedPokeName">
+        app:layout_constraintTop_toBottomOf="@+id/detailedPokeImg">
 
-        <TextView
-            android:id="@+id/detailedPokeType1"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
-    </androidx.cardview.widget.CardView>
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
 
-    <androidx.cardview.widget.CardView
-        android:id="@+id/detailedPokeType2Card"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        app:cardCornerRadius="20dp"
-        app:layout_constraintStart_toEndOf="@+id/detailedPokeType1Card"
-        app:layout_constraintTop_toBottomOf="@+id/detailedPokeName">
+            <TextView
+                android:id="@+id/detailedName"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="6dp"
+                android:text="Pokemon"
+                android:textSize="24sp"
+                android:textStyle="bold"
+                app:layout_constraintStart_toEndOf="@+id/detailedNum"
+                app:layout_constraintTop_toTopOf="@+id/guideline10" />
 
-        <TextView
-            android:id="@+id/detailedPokeType2"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
+            <TextView
+                android:id="@+id/detailedNum"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:text="#000"
+                app:layout_constraintStart_toStartOf="@+id/guideline8"
+                app:layout_constraintTop_toTopOf="@+id/guideline10" />
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/detailedType1Card"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="8dp"
+                app:cardCornerRadius="20dp"
+                app:layout_constraintEnd_toStartOf="@+id/guideline11"
+                app:layout_constraintTop_toTopOf="@+id/guideline10">
+
+                <TextView
+                    android:id="@+id/detailedType1Text"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/white"
+                    android:textStyle="bold" />
+            </androidx.cardview.widget.CardView>
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/detailedType2Card"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="12dp"
+                app:cardCornerRadius="20dp"
+                app:layout_constraintEnd_toStartOf="@+id/detailedType1Card"
+                app:layout_constraintTop_toTopOf="@+id/guideline10">
+
+                <TextView
+                    android:id="@+id/detailedType2Text"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/white"
+                    android:textStyle="bold" />
+            </androidx.cardview.widget.CardView>
+
+            <TextView
+                android:id="@+id/pokeDescription"
+                android:layout_width="352dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:text="Description"
+                app:layout_constraintEnd_toStartOf="@+id/guideline11"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="@+id/guideline8"
+                app:layout_constraintTop_toBottomOf="@+id/detailedName" />
+
+            <TextView
+                android:id="@+id/statsHeader"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:text="Base Stats"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                app:layout_constraintStart_toStartOf="@+id/guideline8"
+                app:layout_constraintTop_toBottomOf="@+id/pokeDescription" />
+
+            <TextView
+                android:id="@+id/attackText"
+                android:layout_width="wrap_content"
+                android:layout_height="19dp"
+                android:layout_marginTop="8dp"
+                android:text="Attack"
+                app:layout_constraintStart_toStartOf="@+id/guideline8"
+                app:layout_constraintTop_toBottomOf="@+id/hpText" />
+
+            <TextView
+                android:id="@+id/defenseText"
+                android:layout_width="wrap_content"
+                android:layout_height="19dp"
+                android:layout_marginTop="8dp"
+                android:text="Defense"
+                app:layout_constraintStart_toStartOf="@+id/guideline8"
+                app:layout_constraintTop_toBottomOf="@+id/attackText" />
+
+            <TextView
+                android:id="@+id/spAttackText"
+                android:layout_width="wrap_content"
+                android:layout_height="19dp"
+                android:layout_marginTop="8dp"
+                android:text="Sp. Attack"
+                app:layout_constraintStart_toStartOf="@+id/guideline8"
+                app:layout_constraintTop_toBottomOf="@+id/defenseText" />
+
+            <TextView
+                android:id="@+id/spDefenseText"
+                android:layout_width="wrap_content"
+                android:layout_height="19dp"
+                android:layout_marginTop="8dp"
+                android:text="Sp. Defense"
+                app:layout_constraintStart_toStartOf="@+id/guideline8"
+                app:layout_constraintTop_toBottomOf="@+id/spAttackText" />
+
+            <TextView
+                android:id="@+id/speedText"
+                android:layout_width="wrap_content"
+                android:layout_height="19dp"
+                android:layout_marginTop="8dp"
+                android:text="Speed"
+                app:layout_constraintStart_toStartOf="@+id/guideline8"
+                app:layout_constraintTop_toBottomOf="@+id/spDefenseText" />
+
+            <ProgressBar
+                android:id="@+id/hpProgressBar"
+                style="?android:attr/progressBarStyleHorizontal"
+                android:layout_width="221dp"
+                android:layout_height="19dp"
+                android:layout_marginTop="8dp"
+                android:max="255"
+                android:min="1"
+                app:layout_constraintStart_toStartOf="@+id/guideline7"
+                app:layout_constraintTop_toBottomOf="@+id/statsHeader" />
+
+            <TextView
+                android:id="@+id/hpNum"
+                android:layout_width="30dp"
+                android:layout_height="19dp"
+                android:layout_marginTop="8dp"
+                android:text="1"
+                app:layout_constraintStart_toStartOf="@+id/guideline6"
+                app:layout_constraintTop_toBottomOf="@+id/statsHeader" />
+
+            <TextView
+                android:id="@+id/hpText"
+                android:layout_width="wrap_content"
+                android:layout_height="19dp"
+                android:layout_marginTop="8dp"
+                android:text="HP"
+                app:layout_constraintStart_toStartOf="@+id/guideline8"
+                app:layout_constraintTop_toBottomOf="@+id/statsHeader" />
+
+            <TextView
+                android:id="@+id/attackNum"
+                android:layout_width="30dp"
+                android:layout_height="19dp"
+                android:layout_marginTop="8dp"
+                android:text="1"
+                app:layout_constraintStart_toStartOf="@+id/guideline6"
+                app:layout_constraintTop_toBottomOf="@+id/hpNum" />
+
+            <TextView
+                android:id="@+id/defenseNum"
+                android:layout_width="30dp"
+                android:layout_height="19dp"
+                android:layout_marginTop="8dp"
+                android:text="1"
+                app:layout_constraintStart_toStartOf="@+id/guideline6"
+                app:layout_constraintTop_toBottomOf="@+id/attackNum" />
+
+            <TextView
+                android:id="@+id/spAttackNum"
+                android:layout_width="30dp"
+                android:layout_height="19dp"
+                android:layout_marginTop="8dp"
+                android:text="1"
+                app:layout_constraintStart_toStartOf="@+id/guideline6"
+                app:layout_constraintTop_toBottomOf="@+id/defenseNum" />
+
+            <TextView
+                android:id="@+id/spDefenseNum"
+                android:layout_width="30dp"
+                android:layout_height="19dp"
+                android:layout_marginTop="8dp"
+                android:text="1"
+                app:layout_constraintStart_toStartOf="@+id/guideline6"
+                app:layout_constraintTop_toBottomOf="@+id/spAttackNum" />
+
+            <TextView
+                android:id="@+id/speedNum"
+                android:layout_width="30dp"
+                android:layout_height="19dp"
+                android:layout_marginTop="8dp"
+                android:text="1"
+                app:layout_constraintStart_toStartOf="@+id/guideline6"
+                app:layout_constraintTop_toBottomOf="@+id/spDefenseNum" />
+
+            <ProgressBar
+                android:id="@+id/attackProgressBar"
+                style="?android:attr/progressBarStyleHorizontal"
+                android:layout_width="221dp"
+                android:layout_height="19dp"
+                android:layout_marginTop="8dp"
+                android:max="255"
+                android:min="1"
+                app:layout_constraintStart_toStartOf="@+id/guideline7"
+                app:layout_constraintTop_toBottomOf="@+id/hpProgressBar" />
+
+            <ProgressBar
+                android:id="@+id/defProgressBar"
+                style="?android:attr/progressBarStyleHorizontal"
+                android:layout_width="221dp"
+                android:layout_height="19dp"
+                android:layout_marginTop="8dp"
+                android:max="255"
+                android:min="1"
+                app:layout_constraintStart_toStartOf="@+id/guideline7"
+                app:layout_constraintTop_toBottomOf="@+id/attackProgressBar" />
+
+            <ProgressBar
+                android:id="@+id/spAttProgressBar"
+                style="?android:attr/progressBarStyleHorizontal"
+                android:layout_width="221dp"
+                android:layout_height="19dp"
+                android:layout_marginTop="8dp"
+                android:max="255"
+                android:min="1"
+                app:layout_constraintStart_toStartOf="@+id/guideline7"
+                app:layout_constraintTop_toBottomOf="@+id/defProgressBar" />
+
+            <ProgressBar
+                android:id="@+id/spDefProgressBar"
+                style="?android:attr/progressBarStyleHorizontal"
+                android:layout_width="221dp"
+                android:layout_height="19dp"
+                android:layout_marginTop="8dp"
+                android:max="255"
+                android:min="1"
+                app:layout_constraintStart_toStartOf="@+id/guideline7"
+                app:layout_constraintTop_toBottomOf="@+id/spAttProgressBar" />
+
+            <ProgressBar
+                android:id="@+id/speedProgressBar"
+                style="?android:attr/progressBarStyleHorizontal"
+                android:layout_width="221dp"
+                android:layout_height="19dp"
+                android:layout_marginTop="8dp"
+                android:max="255"
+                android:min="1"
+                app:layout_constraintStart_toStartOf="@+id/guideline7"
+                app:layout_constraintTop_toBottomOf="@+id/spDefProgressBar" />
+
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/guideline6"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                app:layout_constraintGuide_begin="114dp" />
+
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/guideline7"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                app:layout_constraintGuide_begin="154dp" />
+
+            <TextView
+                android:id="@+id/abilitiesHeader"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:text="Abilties"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                app:layout_constraintStart_toStartOf="@+id/guideline8"
+                app:layout_constraintTop_toBottomOf="@+id/speedText" />
+
+            <TextView
+                android:id="@+id/ability1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:text="test"
+                app:layout_constraintStart_toStartOf="@+id/guideline8"
+                app:layout_constraintTop_toBottomOf="@+id/abilitiesHeader" />
+
+            <TextView
+                android:id="@+id/ability2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:text="test"
+                app:layout_constraintStart_toStartOf="@+id/guideline8"
+                app:layout_constraintTop_toBottomOf="@+id/ability1" />
+
+            <TextView
+                android:id="@+id/ability3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:text="test"
+                app:layout_constraintStart_toStartOf="@+id/guideline8"
+                app:layout_constraintTop_toBottomOf="@+id/ability2" />
+
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/guideline8"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                app:layout_constraintGuide_begin="30dp" />
+
+            <TextView
+                android:id="@+id/evolutionsHeader"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="12dp"
+                android:text="Evolutions"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                app:layout_constraintStart_toStartOf="@+id/guideline8"
+                app:layout_constraintTop_toBottomOf="@+id/ability3" />
+
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/guideline10"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                app:layout_constraintGuide_begin="30dp" />
+
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/guideline11"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                app:layout_constraintGuide_end="30dp" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
     </androidx.cardview.widget.CardView>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
