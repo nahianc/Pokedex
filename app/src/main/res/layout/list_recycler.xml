@@ -6,17 +6,31 @@
     android:layout_height="wrap_content"
     android:paddingTop="5dp">
 
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline13"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_end="16dp" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline12"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_begin="16dp" />
+
     <androidx.cardview.widget.CardView
         android:id="@+id/pokeItemCardView"
-        android:layout_width="407dp"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:backgroundTint="#63D8D8D8"
         android:backgroundTintMode="src_over"
         app:cardBackgroundColor="#FDF2F2"
         app:cardCornerRadius="20dp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/guideline13"
+        app:layout_constraintStart_toStartOf="@+id/guideline12"
         app:layout_constraintTop_toTopOf="parent">
 
         <androidx.constraintlayout.widget.ConstraintLayout
@@ -25,10 +39,10 @@
             android:layout_height="match_parent">
 
             <ImageView
-                android:id="@+id/imageView"
+                android:id="@+id/listBackgroundImg"
                 android:layout_width="100dp"
                 android:layout_height="100dp"
-                android:layout_marginStart="324dp"
+                android:layout_marginStart="300dp"
                 android:alpha="0.07"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
@@ -41,6 +55,8 @@
                 android:layout_marginStart="24dp"
                 android:layout_marginTop="16dp"
                 android:text="#000"
+                android:textColor="@color/white"
+                android:textStyle="bold"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
@@ -51,6 +67,7 @@
                 android:layout_marginStart="24dp"
                 android:layout_marginTop="4dp"
                 android:text="Pokemon"
+                android:textColor="@color/white"
                 android:textSize="20sp"
                 android:textStyle="bold"
                 app:layout_constraintStart_toStartOf="parent"

@@ -6,6 +6,9 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
+import android.widget.EditText;
 
 import com.android.volley.RequestQueue;
 import com.android.volley.toolbox.JsonArrayRequest;
@@ -16,6 +19,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.Locale;
 
 public class ListActivity extends AppCompatActivity implements RecyclerViewAdapter.OnItemClickListener {
     final String JSON_URL = "https://raw.githubusercontent.com/Purukitto/pokemon-data.json/master/pokedex.json";
@@ -23,6 +27,8 @@ public class ListActivity extends AppCompatActivity implements RecyclerViewAdapt
     RequestQueue requestQueue ;
     ArrayList<PokemonModel> pokemonModels;
     RecyclerView recyclerView;
+    RecyclerViewAdapter adapter;
+    EditText searchBar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,6 +37,49 @@ public class ListActivity extends AppCompatActivity implements RecyclerViewAdapt
         pokemonModels = new ArrayList<>();
         recyclerView = findViewById(R.id.listRecyclerView);
         JSONrequest();
+
+        searchBar = findViewById(R.id.searchBar);
+        searchBar.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+                filter(editable.toString());
+            }
+        });
+    }
+
+    private void filter(String query) {
+        ArrayList<PokemonModel> filteredList = new ArrayList<>();
+        // If search bar is empty then repopulate with full list
+        if (query.isEmpty() || query.length() == 0) {
+            adapter.filterList(pokemonModels);
+            return;
+        }
+        // If user is searching by PokeDex number
+        if ( Character.isDigit(query.charAt(0)) ) {
+            for (PokemonModel item : pokemonModels) {
+                if ( String.format(Locale.US, "%03d", item.getPokeDexNum()).contains(query)) {
+                    filteredList.add(item);
+                }
+            }
+        // If user is searching by PokeDex name
+        } else {
+            for (PokemonModel item : pokemonModels) {
+                if (item.getPokeName().toLowerCase().contains(query.toLowerCase())) {
+                    filteredList.add(item);
+                }
+            }
+        }
+        adapter.filterList(filteredList);
     }
 
     private void JSONrequest() {
@@ -96,13 +145,11 @@ public class ListActivity extends AppCompatActivity implements RecyclerViewAdapt
                     // Create model using parsed data and add to list
                     pokemonModels.add(new PokemonModel(pokeName, dexNum, descriptionStr, imgStr, pokeType, pokeAbility, pokeEvolution, pokeStats));
                     System.out.println(dexNum + " " + pokeName);
-                    System.out.println("Pre-Evolution: " + pokeEvolution[0]);
-                    System.out.println("Next-Evolution: " + pokeEvolution[1]);
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
             }
-            // After data parsing and list population is complete, feed a populated list to recycler view
+            // After data parsing and list population is complete, feed the populated list to recycler view
             feedToRecyclerView(pokemonModels);
         }, error -> {
         });
@@ -113,7 +160,7 @@ public class ListActivity extends AppCompatActivity implements RecyclerViewAdapt
 
     private void feedToRecyclerView(ArrayList<PokemonModel> pokemonModels) {
         // After list and adapter have been setup, we can send the adapter to the recycler view
-        RecyclerViewAdapter adapter = new RecyclerViewAdapter(this, pokemonModels, this);
+        adapter = new RecyclerViewAdapter(this, pokemonModels, this);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         recyclerView.setAdapter(adapter);
     }

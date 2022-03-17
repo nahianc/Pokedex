@@ -12,6 +12,7 @@
         android:layout_width="wrap_content"
         android:layout_height="46dp"
         android:text="Pokédex"
+        android:textColor="@color/black"
         android:textSize="34sp"
         android:textStyle="bold"
         app:layout_constraintEnd_toStartOf="@+id/guideline3"
@@ -40,16 +41,17 @@
         android:id="@+id/searchBar"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:layout_marginTop="4dp"
         android:ems="10"
-        android:inputType="number|textPersonName"
+        android:hint="Search by National Pokedex name or number"
         android:lines="1"
         android:maxLength="50"
         android:maxLines="1"
         android:minHeight="48dp"
-        android:text="Search"
+        android:textSize="16sp"
         app:layout_constraintEnd_toStartOf="@+id/guideline3"
         app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="@+id/guideline2"
+        app:layout_constraintStart_toEndOf="@+id/searchIcon"
         app:layout_constraintTop_toBottomOf="@+id/header" />
 
     <androidx.constraintlayout.widget.Guideline
@@ -65,5 +67,14 @@
         android:layout_height="wrap_content"
         android:orientation="vertical"
         app:layout_constraintGuide_end="16dp" />
+
+    <ImageView
+        android:id="@+id/searchIcon"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        app:layout_constraintStart_toStartOf="@+id/guideline2"
+        app:layout_constraintTop_toBottomOf="@+id/header"
+        app:srcCompat="@android:drawable/ic_menu_search" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

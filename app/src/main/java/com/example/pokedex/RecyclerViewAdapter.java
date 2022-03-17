@@ -54,13 +54,21 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
         setPaddingAndColor( holder.listPokeType2, holder.type2card, pokemonModels.get(position).getPokeType()[1] );
 
         Glide.with(context)
-                .load(pokemonModels.get(position).getPokeImg()).apply(option)
+                .load(pokemonModels.get(position).getPokeImg())
+                .apply(option)
+                .placeholder(android.R.drawable.progress_indeterminate_horizontal)
+                .error(android.R.drawable.stat_notify_error)
                 .into(holder.listPokeImg);
     }
 
     @Override
     public int getItemCount() {
         return pokemonModels.size();
+    }
+
+    public void filterList(ArrayList<PokemonModel> filteredList) {
+        pokemonModels = filteredList;
+        notifyDataSetChanged();
     }
 
     public static class MyViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {

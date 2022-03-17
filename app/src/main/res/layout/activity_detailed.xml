@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#FFE3E3"
-    android:backgroundTint="#4FD8D8D8"
+    android:backgroundTint="#40D8D8D8"
     android:backgroundTintMode="src_over"
     tools:context=".DetailedActivity">
 
@@ -67,6 +67,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="6dp"
                 android:text="Pokemon"
+                android:textColor="@color/black"
                 android:textSize="24sp"
                 android:textStyle="bold"
                 app:layout_constraintStart_toEndOf="@+id/detailedNum"
@@ -78,6 +79,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
                 android:text="#000"
+                android:textColor="@color/black"
                 app:layout_constraintStart_toStartOf="@+id/guideline8"
                 app:layout_constraintTop_toTopOf="@+id/guideline10" />
 
@@ -123,6 +125,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
                 android:text="Description"
+                android:textColor="@color/black"
                 app:layout_constraintEnd_toStartOf="@+id/guideline11"
                 app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="@+id/guideline8"
@@ -134,6 +137,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
                 android:text="Base Stats"
+                android:textColor="@color/black"
                 android:textSize="16sp"
                 android:textStyle="bold"
                 app:layout_constraintStart_toStartOf="@+id/guideline8"
@@ -145,6 +149,7 @@
                 android:layout_height="19dp"
                 android:layout_marginTop="8dp"
                 android:text="Attack"
+                android:textColor="@color/black"
                 app:layout_constraintStart_toStartOf="@+id/guideline8"
                 app:layout_constraintTop_toBottomOf="@+id/hpText" />
 
@@ -154,6 +159,7 @@
                 android:layout_height="19dp"
                 android:layout_marginTop="8dp"
                 android:text="Defense"
+                android:textColor="@color/black"
                 app:layout_constraintStart_toStartOf="@+id/guideline8"
                 app:layout_constraintTop_toBottomOf="@+id/attackText" />
 
@@ -163,6 +169,7 @@
                 android:layout_height="19dp"
                 android:layout_marginTop="8dp"
                 android:text="Sp. Attack"
+                android:textColor="@color/black"
                 app:layout_constraintStart_toStartOf="@+id/guideline8"
                 app:layout_constraintTop_toBottomOf="@+id/defenseText" />
 
@@ -172,6 +179,7 @@
                 android:layout_height="19dp"
                 android:layout_marginTop="8dp"
                 android:text="Sp. Defense"
+                android:textColor="@color/black"
                 app:layout_constraintStart_toStartOf="@+id/guideline8"
                 app:layout_constraintTop_toBottomOf="@+id/spAttackText" />
 
@@ -181,6 +189,7 @@
                 android:layout_height="19dp"
                 android:layout_marginTop="8dp"
                 android:text="Speed"
+                android:textColor="@color/black"
                 app:layout_constraintStart_toStartOf="@+id/guideline8"
                 app:layout_constraintTop_toBottomOf="@+id/spDefenseText" />
 
@@ -201,6 +210,7 @@
                 android:layout_height="19dp"
                 android:layout_marginTop="8dp"
                 android:text="1"
+                android:textColor="@color/black"
                 app:layout_constraintStart_toStartOf="@+id/guideline6"
                 app:layout_constraintTop_toBottomOf="@+id/statsHeader" />
 
@@ -210,6 +220,7 @@
                 android:layout_height="19dp"
                 android:layout_marginTop="8dp"
                 android:text="HP"
+                android:textColor="@color/black"
                 app:layout_constraintStart_toStartOf="@+id/guideline8"
                 app:layout_constraintTop_toBottomOf="@+id/statsHeader" />
 
@@ -219,6 +230,7 @@
                 android:layout_height="19dp"
                 android:layout_marginTop="8dp"
                 android:text="1"
+                android:textColor="@color/black"
                 app:layout_constraintStart_toStartOf="@+id/guideline6"
                 app:layout_constraintTop_toBottomOf="@+id/hpNum" />
 
@@ -228,6 +240,7 @@
                 android:layout_height="19dp"
                 android:layout_marginTop="8dp"
                 android:text="1"
+                android:textColor="@color/black"
                 app:layout_constraintStart_toStartOf="@+id/guideline6"
                 app:layout_constraintTop_toBottomOf="@+id/attackNum" />
 
@@ -237,6 +250,7 @@
                 android:layout_height="19dp"
                 android:layout_marginTop="8dp"
                 android:text="1"
+                android:textColor="@color/black"
                 app:layout_constraintStart_toStartOf="@+id/guideline6"
                 app:layout_constraintTop_toBottomOf="@+id/defenseNum" />
 
@@ -246,6 +260,7 @@
                 android:layout_height="19dp"
                 android:layout_marginTop="8dp"
                 android:text="1"
+                android:textColor="@color/black"
                 app:layout_constraintStart_toStartOf="@+id/guideline6"
                 app:layout_constraintTop_toBottomOf="@+id/spAttackNum" />
 
@@ -255,6 +270,7 @@
                 android:layout_height="19dp"
                 android:layout_marginTop="8dp"
                 android:text="1"
+                android:textColor="@color/black"
                 app:layout_constraintStart_toStartOf="@+id/guideline6"
                 app:layout_constraintTop_toBottomOf="@+id/spDefenseNum" />
 
@@ -332,7 +348,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
-                android:text="Abilties"
+                android:text="Abilities"
+                android:textColor="@color/black"
                 android:textSize="16sp"
                 android:textStyle="bold"
                 app:layout_constraintStart_toStartOf="@+id/guideline8"
@@ -344,6 +361,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
                 android:text="test"
+                android:textColor="@color/black"
                 app:layout_constraintStart_toStartOf="@+id/guideline8"
                 app:layout_constraintTop_toBottomOf="@+id/abilitiesHeader" />
 
@@ -353,6 +371,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
                 android:text="test"
+                android:textColor="@color/black"
                 app:layout_constraintStart_toStartOf="@+id/guideline8"
                 app:layout_constraintTop_toBottomOf="@+id/ability1" />
 
@@ -362,6 +381,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
                 android:text="test"
+                android:textColor="@color/black"
                 app:layout_constraintStart_toStartOf="@+id/guideline8"
                 app:layout_constraintTop_toBottomOf="@+id/ability2" />
 
@@ -378,6 +398,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="12dp"
                 android:text="Evolutions"
+                android:textColor="@color/black"
                 android:textSize="16sp"
                 android:textStyle="bold"
                 app:layout_constraintStart_toStartOf="@+id/guideline8"

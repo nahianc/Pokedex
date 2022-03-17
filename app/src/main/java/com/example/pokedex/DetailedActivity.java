@@ -85,7 +85,10 @@ public class DetailedActivity extends AppCompatActivity {
 
         option = new RequestOptions().centerCrop().placeholder(R.drawable.loading_image).error(R.drawable.loading_image);
         Glide.with(this)
-                .load(pokemon.getPokeImg()).apply(option)
+                .load(pokemon.getPokeImg())
+                .apply(option)
+                .placeholder(android.R.drawable.progress_indeterminate_horizontal)
+                .error(android.R.drawable.stat_notify_error)
                 .into(pokeImg);
 
         pokeDescription.setText(pokemon.getPokeDescription());
