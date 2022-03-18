@@ -2,7 +2,7 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/deatiledActivityLayout"
+    android:id="@+id/deatiledMainContainer"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#FFE3E3"
@@ -356,34 +356,37 @@
                 app:layout_constraintTop_toBottomOf="@+id/speedText" />
 
             <TextView
-                android:id="@+id/ability1"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
-                android:text="test"
-                android:textColor="@color/black"
-                app:layout_constraintStart_toStartOf="@+id/guideline8"
-                app:layout_constraintTop_toBottomOf="@+id/abilitiesHeader" />
-
-            <TextView
                 android:id="@+id/ability2"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
+                android:layout_marginStart="12dp"
+                android:layout_marginTop="16dp"
                 android:text="test"
                 android:textColor="@color/black"
-                app:layout_constraintStart_toStartOf="@+id/guideline8"
-                app:layout_constraintTop_toBottomOf="@+id/ability1" />
+                app:layout_constraintStart_toEndOf="@+id/ability1"
+                app:layout_constraintTop_toBottomOf="@+id/speedText" />
+
+            <TextView
+                android:id="@+id/ability1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="28dp"
+                android:layout_marginTop="16dp"
+                android:text="test"
+                android:textColor="@color/black"
+                app:layout_constraintStart_toEndOf="@+id/abilitiesHeader"
+                app:layout_constraintTop_toBottomOf="@+id/speedText" />
 
             <TextView
                 android:id="@+id/ability3"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
+                android:layout_marginStart="12dp"
+                android:layout_marginTop="16dp"
                 android:text="test"
                 android:textColor="@color/black"
-                app:layout_constraintStart_toStartOf="@+id/guideline8"
-                app:layout_constraintTop_toBottomOf="@+id/ability2" />
+                app:layout_constraintStart_toEndOf="@+id/ability2"
+                app:layout_constraintTop_toBottomOf="@+id/speedText" />
 
             <androidx.constraintlayout.widget.Guideline
                 android:id="@+id/guideline8"
@@ -396,13 +399,13 @@
                 android:id="@+id/evolutionsHeader"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="12dp"
+                android:layout_marginTop="16dp"
                 android:text="Evolutions"
                 android:textColor="@color/black"
                 android:textSize="16sp"
                 android:textStyle="bold"
                 app:layout_constraintStart_toStartOf="@+id/guideline8"
-                app:layout_constraintTop_toBottomOf="@+id/ability3" />
+                app:layout_constraintTop_toBottomOf="@+id/abilitiesHeader" />
 
             <androidx.constraintlayout.widget.Guideline
                 android:id="@+id/guideline10"

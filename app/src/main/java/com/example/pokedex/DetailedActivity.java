@@ -37,7 +37,7 @@ public class DetailedActivity extends AppCompatActivity {
             PokemonModel prev_evolution = getIntent().getParcelableExtra("prev_evolution");
         }
 
-        View layout = findViewById(R.id.deatiledActivityLayout);
+        View layout = findViewById(R.id.deatiledMainContainer);
         layout.setBackgroundColor( getStringIdentifier(this, pokemon.getPokeType()[0]));
 
         TextView pokeNum = findViewById(R.id.detailedNum);
@@ -87,8 +87,6 @@ public class DetailedActivity extends AppCompatActivity {
         Glide.with(this)
                 .load(pokemon.getPokeImg())
                 .apply(option)
-                .placeholder(android.R.drawable.progress_indeterminate_horizontal)
-                .error(android.R.drawable.stat_notify_error)
                 .into(pokeImg);
 
         pokeDescription.setText(pokemon.getPokeDescription());

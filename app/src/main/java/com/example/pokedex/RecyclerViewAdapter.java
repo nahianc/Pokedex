@@ -18,17 +18,20 @@ import java.util.Locale;
 
 public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapter.MyViewHolder> {
 
-    private final OnItemClickListener mOnItemClickListener;
+    private ItemClickListener listener;
     Context context;
     RequestOptions option;
     ArrayList<PokemonModel> pokemonModels;
 
-    public RecyclerViewAdapter(Context context, ArrayList<PokemonModel> pokemonModels, OnItemClickListener onItemClickListener) {
+    public RecyclerViewAdapter(Context context, ArrayList<PokemonModel> pokemonModels, ItemClickListener listener) {
         this.context = context;
         this.pokemonModels = pokemonModels;
         // Request option for Glide
-        option = new RequestOptions().centerCrop().placeholder(R.drawable.loading_image).error(R.drawable.loading_image);
-        this.mOnItemClickListener = onItemClickListener;
+        option = new RequestOptions()
+                .centerCrop()
+                .placeholder(R.drawable.loading_image)
+                .error(R.drawable.loading_image);
+        this.listener = listener;
     }
 
     @NonNull
@@ -37,7 +40,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
         // Giving the recycler view the "outline" to recycle
         LayoutInflater inflater = LayoutInflater.from(context);
         View view = inflater.inflate(R.layout.list_recycler, parent, false);
-        return new RecyclerViewAdapter.MyViewHolder(view, mOnItemClickListener);
+        return new RecyclerViewAdapter.MyViewHolder(view);
     }
 
     @Override
@@ -56,9 +59,14 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
         Glide.with(context)
                 .load(pokemonModels.get(position).getPokeImg())
                 .apply(option)
-                .placeholder(android.R.drawable.progress_indeterminate_horizontal)
-                .error(android.R.drawable.stat_notify_error)
                 .into(holder.listPokeImg);
+
+        holder.itemView.findViewById(R.id.listItemContainer).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                listener.onItemClick(pokemonModels.get(holder.getAdapterPosition()));
+            }
+        });
     }
 
     @Override
@@ -71,14 +79,14 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
         notifyDataSetChanged();
     }
 
-    public static class MyViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
+    public static class MyViewHolder extends RecyclerView.ViewHolder {
         // Grabbing views from the recycler layout file and assigning them to variables
         TextView listPokeNum, listPokeName, listPokeType1, listPokeType2;
         ImageView listPokeImg;
         CardView type1card, type2card, background;
-        OnItemClickListener onItemClickListener;
+        ItemClickListener itemClickListener;
 
-        public MyViewHolder(@NonNull View itemView, OnItemClickListener onItemClickListener) {
+        public MyViewHolder(@NonNull View itemView) {
             super(itemView);
             background = itemView.findViewById(R.id.pokeItemCardView);
             listPokeNum = itemView.findViewById(R.id.listNum);
@@ -88,15 +96,8 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
             listPokeImg = itemView.findViewById(R.id.listPokeImg);
             type1card = itemView.findViewById(R.id.listType1Card);
             type2card =itemView.findViewById(R.id.pokeType2Card);
-
-            this.onItemClickListener = onItemClickListener;
-            itemView.setOnClickListener(this);
         }
 
-        @Override
-        public void onClick(View View) {
-            onItemClickListener.onItemClick(getAdapterPosition());
-        }
     }
 
     /*
@@ -122,10 +123,6 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
     */
     public static int getStringIdentifier(Context context, String name) {
         return context.getResources().getColor(context.getResources().getIdentifier(name, "color", context.getPackageName()));
-    }
-
-    public interface OnItemClickListener {
-        void onItemClick(int position);
     }
 
 }

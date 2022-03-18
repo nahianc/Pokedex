@@ -21,7 +21,7 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.Locale;
 
-public class ListActivity extends AppCompatActivity implements RecyclerViewAdapter.OnItemClickListener {
+public class ListActivity extends AppCompatActivity implements ItemClickListener {
     final String JSON_URL = "https://raw.githubusercontent.com/Purukitto/pokemon-data.json/master/pokedex.json";
     JsonArrayRequest request ;
     RequestQueue requestQueue ;
@@ -60,7 +60,7 @@ public class ListActivity extends AppCompatActivity implements RecyclerViewAdapt
     private void filter(String query) {
         ArrayList<PokemonModel> filteredList = new ArrayList<>();
         // If search bar is empty then repopulate with full list
-        if (query.isEmpty() || query.length() == 0) {
+        if (query == null || query.trim().isEmpty()) {
             adapter.filterList(pokemonModels);
             return;
         }
@@ -166,15 +166,13 @@ public class ListActivity extends AppCompatActivity implements RecyclerViewAdapt
     }
 
     @Override
-    public void onItemClick(int position) {
-        // Navigate to detailed activity if pokemon from list is clicked
-        PokemonModel currentPokemon = pokemonModels.get(position);
+    public void onItemClick(PokemonModel selectedPokemon) {
         Intent intent = new Intent(this, DetailedActivity.class);
-        intent.putExtra("selected_pokemon", currentPokemon);
-        if (!currentPokemon.getPokeEvolution()[0].equals(""))
-            intent.putExtra("prev_evolution", pokemonModels.get( Integer.parseInt( currentPokemon.getPokeEvolution()[0])-1));
-        if (!currentPokemon.getPokeEvolution()[1].equals(""))
-            intent.putExtra("next_evolution", pokemonModels.get( Integer.parseInt( currentPokemon.getPokeEvolution()[1])-1));
+        intent.putExtra("selected_pokemon", selectedPokemon);
+        if (!selectedPokemon.getPokeEvolution()[0].equals(""))
+            intent.putExtra("prev_evolution", pokemonModels.get( Integer.parseInt( selectedPokemon.getPokeEvolution()[0])-1));
+        if (!selectedPokemon.getPokeEvolution()[1].equals(""))
+            intent.putExtra("next_evolution", pokemonModels.get( Integer.parseInt( selectedPokemon.getPokeEvolution()[1])-1));
         startActivity(intent);
     }
 }
