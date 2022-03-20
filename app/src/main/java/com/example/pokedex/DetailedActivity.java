@@ -1,16 +1,22 @@
 package com.example.pokedex;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.cardview.widget.CardView;
+import androidx.constraintlayout.widget.ConstraintLayout;
+import androidx.constraintlayout.widget.ConstraintSet;
+import androidx.constraintlayout.widget.Constraints;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
@@ -19,7 +25,7 @@ import java.util.Locale;
 
 public class DetailedActivity extends AppCompatActivity {
 
-    PokemonModel pokemon;
+    PokemonModel pokemon, prev_evolution, next_evolution;
     RequestOptions option;
 
     @Override
@@ -31,10 +37,10 @@ public class DetailedActivity extends AppCompatActivity {
             pokemon = getIntent().getParcelableExtra("selected_pokemon");
         }
         if(getIntent().hasExtra("next_evolution")) {
-            PokemonModel next_evolution = getIntent().getParcelableExtra("next_evolution");
+            next_evolution = getIntent().getParcelableExtra("next_evolution");
         }
         if(getIntent().hasExtra("prev_evolution")) {
-            PokemonModel prev_evolution = getIntent().getParcelableExtra("prev_evolution");
+            prev_evolution = getIntent().getParcelableExtra("prev_evolution");
         }
 
         View layout = findViewById(R.id.deatiledMainContainer);
@@ -108,6 +114,61 @@ public class DetailedActivity extends AppCompatActivity {
         speedBar.setProgress(pokemon.getPokeStats()[5]);
         speedNum.setText(Integer.toString(pokemon.getPokeStats()[5]));
 
+        if(getIntent().hasExtra("next_evolution") && getIntent().hasExtra("prev_evolution")) {
+            ConstraintLayout placeholderLayout = (ConstraintLayout) findViewById(R.id.placeholderLayout);
+            View evolutionView = LayoutInflater.from(this).inflate(R.layout.evolution_layout, placeholderLayout, false);
+            placeholderLayout.addView(evolutionView);
+
+            ImageView preEvoImg = evolutionView.findViewById(R.id.preEvoImg);
+            Glide.with(this)
+                    .load(prev_evolution.getPokeImg())
+                    .apply(option)
+                    .into(preEvoImg);
+
+            ImageView currentEvoImg = evolutionView.findViewById(R.id.currentEvoImg);
+            Glide.with(this)
+                    .load(pokemon.getPokeImg())
+                    .apply(option)
+                    .into(currentEvoImg);
+
+            ImageView nextEvoImg = evolutionView.findViewById(R.id.nextEvoImg);
+            Glide.with(this)
+                    .load(next_evolution.getPokeImg())
+                    .apply(option)
+                    .into(nextEvoImg);
+        } else if (getIntent().hasExtra("prev_evolution")) {
+            ConstraintLayout placeholderLayout = (ConstraintLayout) findViewById(R.id.placeholderLayout);
+            View evolutionView = LayoutInflater.from(this).inflate(R.layout.one_evolution_layout, placeholderLayout, false);
+            placeholderLayout.addView(evolutionView);
+
+            ImageView leftEvoImg = evolutionView.findViewById(R.id.leftEvoImg);
+            Glide.with(this)
+                    .load(prev_evolution.getPokeImg())
+                    .apply(option)
+                    .into(leftEvoImg);
+
+            ImageView rightEvoImg = evolutionView.findViewById(R.id.rightEvoImg);
+            Glide.with(this)
+                    .load(pokemon.getPokeImg())
+                    .apply(option)
+                    .into(rightEvoImg);
+        } else if (getIntent().hasExtra("next_evolution")) {
+            ConstraintLayout placeholderLayout = (ConstraintLayout) findViewById(R.id.placeholderLayout);
+            View evolutionView = LayoutInflater.from(this).inflate(R.layout.one_evolution_layout, placeholderLayout, false);
+            placeholderLayout.addView(evolutionView);
+
+            ImageView leftEvoImg = evolutionView.findViewById(R.id.leftEvoImg);
+            Glide.with(this)
+                    .load(pokemon.getPokeImg())
+                    .apply(option)
+                    .into(leftEvoImg);
+
+            ImageView rightEvoImg = evolutionView.findViewById(R.id.rightEvoImg);
+            Glide.with(this)
+                    .load(next_evolution.getPokeImg())
+                    .apply(option)
+                    .into(rightEvoImg);
+        }
 
     }
 

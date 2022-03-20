@@ -67,7 +67,7 @@ public class ListActivity extends AppCompatActivity implements ItemClickListener
         // If user is searching by PokeDex number
         if ( Character.isDigit(query.charAt(0)) ) {
             for (PokemonModel item : pokemonModels) {
-                if ( String.format(Locale.US, "%03d", item.getPokeDexNum()).contains(query)) {
+                if ( String.format(Locale.US, "%03d", item.getPokeDexNum()).contains(String.format(Locale.US, "%03d", Integer.parseInt(query)))) {
                     filteredList.add(item);
                 }
             }
@@ -163,6 +163,7 @@ public class ListActivity extends AppCompatActivity implements ItemClickListener
         adapter = new RecyclerViewAdapter(this, pokemonModels, this);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         recyclerView.setAdapter(adapter);
+        recyclerView.setHasFixedSize(true);
     }
 
     @Override

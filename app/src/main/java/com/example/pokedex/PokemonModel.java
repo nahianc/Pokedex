@@ -4,11 +4,9 @@ import android.os.Parcel;
 import android.os.Parcelable;
 
 public class PokemonModel implements Parcelable {
-    int pokeDexNum;
-    String pokeName, pokeDescription, pokeImg;
-    String[] pokeType;
-    String[] pokeAbility;
-    String[] pokeEvolution;
+    private int pokeDexNum;
+    private String pokeName, pokeDescription, pokeImg;
+    private String[] pokeType, pokeAbility, pokeEvolution;
     int[] pokeStats;
 
     public PokemonModel(String pokeName, int pokeDexNum, String pokeDescription, String pokeImg,

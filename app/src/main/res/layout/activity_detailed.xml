@@ -58,6 +58,7 @@
         app:layout_constraintTop_toBottomOf="@+id/detailedPokeImg">
 
         <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/detailsCardContainer"
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
@@ -121,7 +122,7 @@
 
             <TextView
                 android:id="@+id/pokeDescription"
-                android:layout_width="352dp"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
                 android:text="Description"
@@ -196,11 +197,12 @@
             <ProgressBar
                 android:id="@+id/hpProgressBar"
                 style="?android:attr/progressBarStyleHorizontal"
-                android:layout_width="221dp"
+                android:layout_width="0dp"
                 android:layout_height="19dp"
                 android:layout_marginTop="8dp"
                 android:max="255"
                 android:min="1"
+                app:layout_constraintEnd_toStartOf="@+id/guideline11"
                 app:layout_constraintStart_toStartOf="@+id/guideline7"
                 app:layout_constraintTop_toBottomOf="@+id/statsHeader" />
 
@@ -277,55 +279,60 @@
             <ProgressBar
                 android:id="@+id/attackProgressBar"
                 style="?android:attr/progressBarStyleHorizontal"
-                android:layout_width="221dp"
+                android:layout_width="0dp"
                 android:layout_height="19dp"
                 android:layout_marginTop="8dp"
                 android:max="255"
                 android:min="1"
+                app:layout_constraintEnd_toStartOf="@+id/guideline11"
                 app:layout_constraintStart_toStartOf="@+id/guideline7"
                 app:layout_constraintTop_toBottomOf="@+id/hpProgressBar" />
 
             <ProgressBar
                 android:id="@+id/defProgressBar"
                 style="?android:attr/progressBarStyleHorizontal"
-                android:layout_width="221dp"
+                android:layout_width="0dp"
                 android:layout_height="19dp"
                 android:layout_marginTop="8dp"
                 android:max="255"
                 android:min="1"
+                app:layout_constraintEnd_toStartOf="@+id/guideline11"
                 app:layout_constraintStart_toStartOf="@+id/guideline7"
                 app:layout_constraintTop_toBottomOf="@+id/attackProgressBar" />
 
             <ProgressBar
                 android:id="@+id/spAttProgressBar"
                 style="?android:attr/progressBarStyleHorizontal"
-                android:layout_width="221dp"
+                android:layout_width="0dp"
                 android:layout_height="19dp"
                 android:layout_marginTop="8dp"
                 android:max="255"
                 android:min="1"
+                app:layout_constraintEnd_toStartOf="@+id/guideline11"
                 app:layout_constraintStart_toStartOf="@+id/guideline7"
                 app:layout_constraintTop_toBottomOf="@+id/defProgressBar" />
 
             <ProgressBar
                 android:id="@+id/spDefProgressBar"
                 style="?android:attr/progressBarStyleHorizontal"
-                android:layout_width="221dp"
+                android:layout_width="0dp"
                 android:layout_height="19dp"
                 android:layout_marginTop="8dp"
                 android:max="255"
                 android:min="1"
+                app:layout_constraintEnd_toStartOf="@+id/guideline11"
                 app:layout_constraintStart_toStartOf="@+id/guideline7"
                 app:layout_constraintTop_toBottomOf="@+id/spAttProgressBar" />
 
             <ProgressBar
                 android:id="@+id/speedProgressBar"
                 style="?android:attr/progressBarStyleHorizontal"
-                android:layout_width="221dp"
+                android:layout_width="0dp"
                 android:layout_height="19dp"
                 android:layout_marginTop="8dp"
                 android:max="255"
                 android:min="1"
+                app:layout_constraintEnd_toStartOf="@+id/guideline11"
                 app:layout_constraintStart_toStartOf="@+id/guideline7"
                 app:layout_constraintTop_toBottomOf="@+id/spDefProgressBar" />
 
@@ -385,6 +392,8 @@
                 android:layout_marginTop="16dp"
                 android:text="test"
                 android:textColor="@color/black"
+                app:layout_constraintEnd_toStartOf="@+id/guideline11"
+                app:layout_constraintHorizontal_bias="0.023"
                 app:layout_constraintStart_toEndOf="@+id/ability2"
                 app:layout_constraintTop_toBottomOf="@+id/speedText" />
 
@@ -394,18 +403,6 @@
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
                 app:layout_constraintGuide_begin="30dp" />
-
-            <TextView
-                android:id="@+id/evolutionsHeader"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
-                android:text="Evolutions"
-                android:textColor="@color/black"
-                android:textSize="16sp"
-                android:textStyle="bold"
-                app:layout_constraintStart_toStartOf="@+id/guideline8"
-                app:layout_constraintTop_toBottomOf="@+id/abilitiesHeader" />
 
             <androidx.constraintlayout.widget.Guideline
                 android:id="@+id/guideline10"
@@ -420,6 +417,25 @@
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
                 app:layout_constraintGuide_end="30dp" />
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/evolutionsPlaceholder"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                app:cardBackgroundColor="#00FFFFFF"
+                app:cardElevation="0dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/abilitiesHeader">
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/placeholderLayout"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+            </androidx.cardview.widget.CardView>
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 

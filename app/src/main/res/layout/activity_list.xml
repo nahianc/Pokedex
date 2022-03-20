@@ -24,6 +24,7 @@
         android:id="@+id/listCardView"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
+        app:cardElevation="0dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
@@ -34,7 +35,8 @@
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/listRecyclerView"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="?attr/actionBarSize"/>
     </androidx.cardview.widget.CardView>
 
     <EditText

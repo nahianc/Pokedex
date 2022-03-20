@@ -4,13 +4,18 @@
     <option name="filePathToZoomLevelMap">
       <map>
         <entry key="..\:/Users/nahia/CS Assignments/Pokedex/app/src/main/res/layout/activity_detail.xml" value="0.5" />
-        <entry key="..\:/Users/nahia/CS Assignments/Pokedex/app/src/main/res/layout/activity_detailed.xml" value="0.67" />
+        <entry key="..\:/Users/nahia/CS Assignments/Pokedex/app/src/main/res/layout/activity_detailed.xml" value="0.33" />
         <entry key="..\:/Users/nahia/CS Assignments/Pokedex/app/src/main/res/layout/activity_home.xml" value="0.33" />
         <entry key="..\:/Users/nahia/CS Assignments/Pokedex/app/src/main/res/layout/activity_list.xml" value="0.33" />
-        <entry key="..\:/Users/nahia/CS Assignments/Pokedex/app/src/main/res/layout/activity_main.xml" value="0.5" />
+        <entry key="..\:/Users/nahia/CS Assignments/Pokedex/app/src/main/res/layout/activity_main.xml" value="0.33" />
+        <entry key="..\:/Users/nahia/CS Assignments/Pokedex/app/src/main/res/layout/evolution_layout.xml" value="0.3677536231884058" />
         <entry key="..\:/Users/nahia/CS Assignments/Pokedex/app/src/main/res/layout/home_list_recycler.xml" value="0.5" />
         <entry key="..\:/Users/nahia/CS Assignments/Pokedex/app/src/main/res/layout/list_recycler.xml" value="0.42696629213483145" />
+        <entry key="..\:/Users/nahia/CS Assignments/Pokedex/app/src/main/res/layout/next_evolution_layout.xml" value="0.3677536231884058" />
+        <entry key="..\:/Users/nahia/CS Assignments/Pokedex/app/src/main/res/layout/one_evolution_layout.xml" value="0.3677536231884058" />
         <entry key="..\:/Users/nahia/CS Assignments/Pokedex/app/src/main/res/layout/poke_type_recycler.xml" value="0.5" />
+        <entry key="..\:/Users/nahia/CS Assignments/Pokedex/app/src/main/res/layout/pre_evolution_layout.xml" value="0.3677536231884058" />
+        <entry key="..\:/Users/nahia/CS Assignments/Pokedex/app/src/main/res/layout/test.xml" value="0.5" />
       </map>
     </option>
   </component>
