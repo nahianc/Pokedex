@@ -1,13 +1,11 @@
-package com.example.pokedex;
+package com.app.pokedexNC;
 
 import android.content.Context;
-import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
@@ -15,8 +13,6 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.cardview.widget.CardView;
 import androidx.constraintlayout.widget.ConstraintLayout;
-import androidx.constraintlayout.widget.ConstraintSet;
-import androidx.constraintlayout.widget.Constraints;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
@@ -44,7 +40,7 @@ public class DetailedActivity extends AppCompatActivity {
         }
 
         View layout = findViewById(R.id.deatiledMainContainer);
-        layout.setBackgroundColor( getStringIdentifier(this, pokemon.getPokeType()[0]));
+        layout.setBackgroundColor( getStringIdentifier(this, pokemon.getTypes()[0]));
 
         TextView pokeNum = findViewById(R.id.detailedNum);
         TextView pokeName = findViewById(R.id.detailedName);
@@ -76,43 +72,43 @@ public class DetailedActivity extends AppCompatActivity {
         TextView ability2 = findViewById(R.id.ability2);
         TextView ability3 = findViewById(R.id.ability3);
 
-        pokeNum.setText("#" + String.format(Locale.US, "%03d", pokemon.getPokeDexNum()));
-        pokeName.setText(pokemon.getPokeName());
+        pokeNum.setText("#" + String.format(Locale.US, "%03d", pokemon.getId()));
+        pokeName.setText(pokemon.getName());
 
-        pokeType1.setText(pokemon.getPokeType()[0]);
+        pokeType1.setText(pokemon.getTypes()[0]);
         setPadding(pokeType1);
-        type1card.setCardBackgroundColor( getStringIdentifier(this, pokemon.getPokeType()[0]) );
+        type1card.setCardBackgroundColor( getStringIdentifier(this, pokemon.getTypes()[0]) );
 
-        if(pokemon.getPokeType()[1].length() > 0) {
-            pokeType2.setText(pokemon.getPokeType()[1]);
+        if(pokemon.getTypes()[1].length() > 0) {
+            pokeType2.setText(pokemon.getTypes()[1]);
             setPadding(pokeType2);
-            type2card.setCardBackgroundColor( getStringIdentifier(this, pokemon.getPokeType()[1]) );
+            type2card.setCardBackgroundColor( getStringIdentifier(this, pokemon.getTypes()[1]) );
         }
 
         option = new RequestOptions().centerCrop().placeholder(R.drawable.loading_image).error(R.drawable.loading_image);
         Glide.with(this)
-                .load(pokemon.getPokeImg())
+                .load(pokemon.getImgPath())
                 .apply(option)
                 .into(pokeImg);
 
         pokeDescription.setText(pokemon.getPokeDescription());
 
-        ability1.setText(pokemon.getPokeAbility()[0]);
-        ability2.setText(pokemon.getPokeAbility()[1]);
-        ability3.setText(pokemon.getPokeAbility()[2]);
+        ability1.setText(pokemon.getAbilities()[0]);
+        ability2.setText(pokemon.getAbilities()[1]);
+        ability3.setText(pokemon.getAbilities()[2]);
 
-        hpBar.setProgress(pokemon.getPokeStats()[0]);
-        HPnum.setText(Integer.toString(pokemon.getPokeStats()[0]));
-        attackBar.setProgress(pokemon.getPokeStats()[1]);
-        attackNum.setText(Integer.toString(pokemon.getPokeStats()[1]));
-        defBar.setProgress(pokemon.getPokeStats()[2]);
-        defenseNum.setText(Integer.toString(pokemon.getPokeStats()[2]));
-        spAttBar.setProgress(pokemon.getPokeStats()[3]);
-        spAttNum.setText(Integer.toString(pokemon.getPokeStats()[3]));
-        spDefBar.setProgress(pokemon.getPokeStats()[4]);
-        spDefNum.setText(Integer.toString(pokemon.getPokeStats()[4]));
-        speedBar.setProgress(pokemon.getPokeStats()[5]);
-        speedNum.setText(Integer.toString(pokemon.getPokeStats()[5]));
+        hpBar.setProgress(pokemon.getStats()[0]);
+        HPnum.setText(Integer.toString(pokemon.getStats()[0]));
+        attackBar.setProgress(pokemon.getStats()[1]);
+        attackNum.setText(Integer.toString(pokemon.getStats()[1]));
+        defBar.setProgress(pokemon.getStats()[2]);
+        defenseNum.setText(Integer.toString(pokemon.getStats()[2]));
+        spAttBar.setProgress(pokemon.getStats()[3]);
+        spAttNum.setText(Integer.toString(pokemon.getStats()[3]));
+        spDefBar.setProgress(pokemon.getStats()[4]);
+        spDefNum.setText(Integer.toString(pokemon.getStats()[4]));
+        speedBar.setProgress(pokemon.getStats()[5]);
+        speedNum.setText(Integer.toString(pokemon.getStats()[5]));
 
         if(getIntent().hasExtra("next_evolution") && getIntent().hasExtra("prev_evolution")) {
             ConstraintLayout placeholderLayout = (ConstraintLayout) findViewById(R.id.placeholderLayout);
@@ -121,19 +117,19 @@ public class DetailedActivity extends AppCompatActivity {
 
             ImageView preEvoImg = evolutionView.findViewById(R.id.preEvoImg);
             Glide.with(this)
-                    .load(prev_evolution.getPokeImg())
+                    .load(prev_evolution.getImgPath())
                     .apply(option)
                     .into(preEvoImg);
 
             ImageView currentEvoImg = evolutionView.findViewById(R.id.currentEvoImg);
             Glide.with(this)
-                    .load(pokemon.getPokeImg())
+                    .load(pokemon.getImgPath())
                     .apply(option)
                     .into(currentEvoImg);
 
             ImageView nextEvoImg = evolutionView.findViewById(R.id.nextEvoImg);
             Glide.with(this)
-                    .load(next_evolution.getPokeImg())
+                    .load(next_evolution.getImgPath())
                     .apply(option)
                     .into(nextEvoImg);
         } else if (getIntent().hasExtra("prev_evolution")) {
@@ -143,13 +139,13 @@ public class DetailedActivity extends AppCompatActivity {
 
             ImageView leftEvoImg = evolutionView.findViewById(R.id.leftEvoImg);
             Glide.with(this)
-                    .load(prev_evolution.getPokeImg())
+                    .load(prev_evolution.getImgPath())
                     .apply(option)
                     .into(leftEvoImg);
 
             ImageView rightEvoImg = evolutionView.findViewById(R.id.rightEvoImg);
             Glide.with(this)
-                    .load(pokemon.getPokeImg())
+                    .load(pokemon.getImgPath())
                     .apply(option)
                     .into(rightEvoImg);
         } else if (getIntent().hasExtra("next_evolution")) {
@@ -159,13 +155,13 @@ public class DetailedActivity extends AppCompatActivity {
 
             ImageView leftEvoImg = evolutionView.findViewById(R.id.leftEvoImg);
             Glide.with(this)
-                    .load(pokemon.getPokeImg())
+                    .load(pokemon.getImgPath())
                     .apply(option)
                     .into(leftEvoImg);
 
             ImageView rightEvoImg = evolutionView.findViewById(R.id.rightEvoImg);
             Glide.with(this)
-                    .load(next_evolution.getPokeImg())
+                    .load(next_evolution.getImgPath())
                     .apply(option)
                     .into(rightEvoImg);
         }

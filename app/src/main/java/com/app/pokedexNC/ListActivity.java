@@ -1,4 +1,4 @@
-package com.example.pokedex;
+package com.app.pokedexNC;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -23,22 +23,24 @@ import java.util.Locale;
 
 public class ListActivity extends AppCompatActivity implements ItemClickListener {
     final String JSON_URL = "https://raw.githubusercontent.com/Purukitto/pokemon-data.json/master/pokedex.json";
-    JsonArrayRequest request ;
-    RequestQueue requestQueue ;
-    ArrayList<PokemonModel> pokemonModels;
+    JsonArrayRequest request;
     RecyclerView recyclerView;
     RecyclerViewAdapter adapter;
-    EditText searchBar;
+    ArrayList<PokemonModel> pokemonModels;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_list);
-        pokemonModels = new ArrayList<>();
-        recyclerView = findViewById(R.id.listRecyclerView);
-        JSONrequest();
 
-        searchBar = findViewById(R.id.searchBar);
+        pokemonModels = new ArrayList<>();
+
+        recyclerView = findViewById(R.id.listRecyclerView);
+        parseJSON();
+        RequestQueue requestQueue = Volley.newRequestQueue(this);
+        requestQueue.add(request);
+
+        EditText searchBar = findViewById(R.id.searchBar);
         searchBar.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
@@ -67,14 +69,14 @@ public class ListActivity extends AppCompatActivity implements ItemClickListener
         // If user is searching by PokeDex number
         if ( Character.isDigit(query.charAt(0)) ) {
             for (PokemonModel item : pokemonModels) {
-                if ( String.format(Locale.US, "%03d", item.getPokeDexNum()).contains(String.format(Locale.US, "%03d", Integer.parseInt(query)))) {
+                if ( String.format(Locale.US, "%03d", item.getId()).contains(String.format(Locale.US, "%03d", Integer.parseInt(query)))) {
                     filteredList.add(item);
                 }
             }
         // If user is searching by PokeDex name
         } else {
             for (PokemonModel item : pokemonModels) {
-                if (item.getPokeName().toLowerCase().contains(query.toLowerCase())) {
+                if (item.getName().toLowerCase().contains(query.toLowerCase())) {
                     filteredList.add(item);
                 }
             }
@@ -82,7 +84,26 @@ public class ListActivity extends AppCompatActivity implements ItemClickListener
         adapter.filterList(filteredList);
     }
 
-    private void JSONrequest() {
+    private void feedToRecyclerView(ArrayList<PokemonModel> pokemonModels) {
+        // After list and adapter have been setup, we can send the adapter to the recycler view
+        adapter = new RecyclerViewAdapter(this, pokemonModels, this);
+        recyclerView.setAdapter(adapter);
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        recyclerView.setHasFixedSize(true);
+    }
+
+    @Override
+    public void onItemClick(PokemonModel selectedPokemon) {
+        Intent intent = new Intent(this, DetailedActivity.class);
+        intent.putExtra("selected_pokemon", selectedPokemon);
+        if (!selectedPokemon.getEvolution()[0].equals(""))
+            intent.putExtra("prev_evolution", pokemonModels.get( Integer.parseInt( selectedPokemon.getEvolution()[0])-1));
+        if (!selectedPokemon.getEvolution()[1].equals(""))
+            intent.putExtra("next_evolution", pokemonModels.get( Integer.parseInt( selectedPokemon.getEvolution()[1])-1));
+        startActivity(intent);
+    }
+
+    private void parseJSON() {
         request = new JsonArrayRequest(JSON_URL, response -> {
 
             JSONObject pokeObj  = null;
@@ -144,36 +165,17 @@ public class ListActivity extends AppCompatActivity implements ItemClickListener
 
                     // Create model using parsed data and add to list
                     pokemonModels.add(new PokemonModel(pokeName, dexNum, descriptionStr, imgStr, pokeType, pokeAbility, pokeEvolution, pokeStats));
-                    System.out.println(dexNum + " " + pokeName);
+                    // System.out.println(dexNum + " " + pokeName);
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
             }
-            // After data parsing and list population is complete, feed the populated list to recycler view
+            /*
+            After data parsing and list population is complete,
+            feed the populated list to recycler view
+            */
             feedToRecyclerView(pokemonModels);
         }, error -> {
         });
-
-        requestQueue = Volley.newRequestQueue(this);
-        requestQueue.add(request) ;
-    }
-
-    private void feedToRecyclerView(ArrayList<PokemonModel> pokemonModels) {
-        // After list and adapter have been setup, we can send the adapter to the recycler view
-        adapter = new RecyclerViewAdapter(this, pokemonModels, this);
-        recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        recyclerView.setAdapter(adapter);
-        recyclerView.setHasFixedSize(true);
-    }
-
-    @Override
-    public void onItemClick(PokemonModel selectedPokemon) {
-        Intent intent = new Intent(this, DetailedActivity.class);
-        intent.putExtra("selected_pokemon", selectedPokemon);
-        if (!selectedPokemon.getPokeEvolution()[0].equals(""))
-            intent.putExtra("prev_evolution", pokemonModels.get( Integer.parseInt( selectedPokemon.getPokeEvolution()[0])-1));
-        if (!selectedPokemon.getPokeEvolution()[1].equals(""))
-            intent.putExtra("next_evolution", pokemonModels.get( Integer.parseInt( selectedPokemon.getPokeEvolution()[1])-1));
-        startActivity(intent);
     }
 }

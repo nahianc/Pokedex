@@ -1,4 +1,4 @@
-package com.example.pokedex;
+package com.app.pokedexNC;
 
 import androidx.appcompat.app.AppCompatActivity;
 

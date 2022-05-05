@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.example.pokedex">
+    package="com.app.pokedexNC">
 
     <uses-permission android:name="android.permission.INTERNET" />
 
@@ -12,13 +12,13 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Pokedex">
         <activity
-            android:name=".DetailedActivity"
+            android:name="com.app.pokedexNC.DetailedActivity"
             android:exported="false" />
         <activity
-            android:name=".ListActivity"
+            android:name="com.app.pokedexNC.ListActivity"
             android:exported="false" />
         <activity
-            android:name=".MainActivity"
+            android:name="com.app.pokedexNC.MainActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

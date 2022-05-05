@@ -1,4 +1,4 @@
-package com.example.pokedex;
+package com.app.pokedexNC;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -38,7 +38,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
     @Override
     public RecyclerViewAdapter.MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         // Giving the recycler view the "outline" to recycle
-        LayoutInflater inflater = LayoutInflater.from(context);
+        LayoutInflater inflater = LayoutInflater.from(parent.getContext());
         View view = inflater.inflate(R.layout.list_recycler, parent, false);
         return new RecyclerViewAdapter.MyViewHolder(view);
     }
@@ -46,18 +46,18 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
     @Override
     public void onBindViewHolder(@NonNull RecyclerViewAdapter.MyViewHolder holder, int position) {
         // Assigning data/values to recycled view elements
-        holder.background.setCardBackgroundColor( getStringIdentifier(context, pokemonModels.get(position).getPokeType()[0]) );
-        holder.listPokeNum.setText( "#" + String.format(Locale.US, "%03d", pokemonModels.get(position).getPokeDexNum()) );
-        holder.listPokeName.setText(pokemonModels.get(position).getPokeName());
+        holder.background.setCardBackgroundColor( getStringIdentifier(context, pokemonModels.get(position).getTypes()[0]) );
+        holder.listPokeNum.setText( "#" + String.format(Locale.US, "%03d", pokemonModels.get(position).getId()) );
+        holder.listPokeName.setText(pokemonModels.get(position).getName());
 
-        holder.listPokeType1.setText((pokemonModels.get(position).getPokeType())[0]);
-        setPaddingAndColor( holder.listPokeType1, holder.type1card, pokemonModels.get(position).getPokeType()[0] );
+        holder.listPokeType1.setText((pokemonModels.get(position).getTypes())[0]);
+        setPaddingAndColor( holder.listPokeType1, holder.type1card, pokemonModels.get(position).getTypes()[0] );
 
-        holder.listPokeType2.setText((pokemonModels.get(position).getPokeType())[1]);
-        setPaddingAndColor( holder.listPokeType2, holder.type2card, pokemonModels.get(position).getPokeType()[1] );
+        holder.listPokeType2.setText((pokemonModels.get(position).getTypes())[1]);
+        setPaddingAndColor( holder.listPokeType2, holder.type2card, pokemonModels.get(position).getTypes()[1] );
 
         Glide.with(context)
-                .load(pokemonModels.get(position).getPokeImg())
+                .load(pokemonModels.get(position).getImgPath())
                 .apply(option)
                 .into(holder.listPokeImg);
 
