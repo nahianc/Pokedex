@@ -1,4 +1,4 @@
-package com.app.pokedexNC;
+package com.nahianc.pokedex;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -31,7 +31,7 @@ public class ListActivity extends AppCompatActivity implements ItemClickListener
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_list);
+        setContentView( R.layout.activity_list);
 
         pokemonModels = new ArrayList<>();
 

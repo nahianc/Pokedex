@@ -1,4 +1,4 @@
-package com.app.pokedexNC;
+package com.nahianc.pokedex;
 
 import android.content.Context;
 import android.os.Bundle;

@@ -1,4 +1,4 @@
-package com.app.pokedexNC;
+package com.nahianc.pokedex;
 
 import org.junit.Test;
 
