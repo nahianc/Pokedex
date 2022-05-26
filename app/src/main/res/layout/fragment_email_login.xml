@@ -12,7 +12,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="15dp"
-        android:text="Already have an account? Login"
+        android:text="Need an account? Sign Up"
         android:textAlignment="center"
         android:textColor="#FFFFFF"
         android:textStyle="bold"
@@ -35,7 +35,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <EditText
-        android:id="@+id/emailField"
+        android:id="@+id/emailField_SignIn"
         android:layout_width="260dp"
         android:layout_height="wrap_content"
         android:backgroundTint="#FFFFFF"
@@ -58,10 +58,10 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.195"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/emailField" />
+        app:layout_constraintTop_toBottomOf="@+id/emailField_SignIn" />
 
     <EditText
-        android:id="@+id/passwordField"
+        android:id="@+id/passwordField_SignIn"
         android:layout_width="260dp"
         android:layout_height="wrap_content"
         android:backgroundTint="#FFFFFF"
@@ -81,7 +81,7 @@
         app:cardCornerRadius="40dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/passwordField">
+        app:layout_constraintTop_toBottomOf="@+id/passwordField_SignIn">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
@@ -91,7 +91,7 @@
                 android:id="@+id/textView6"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Create Account"
+                android:text="Sign In"
                 android:textColor="#000000"
                 android:textSize="16sp"
                 android:textStyle="bold"

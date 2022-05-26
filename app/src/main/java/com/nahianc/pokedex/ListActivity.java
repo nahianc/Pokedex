@@ -1,5 +1,6 @@
 package com.nahianc.pokedex;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -13,6 +14,13 @@ import android.widget.EditText;
 import com.android.volley.RequestQueue;
 import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.Volley;
+import com.facebook.login.LoginManager;
+import com.google.android.gms.auth.api.signin.GoogleSignIn;
+import com.google.android.gms.auth.api.signin.GoogleSignInClient;
+import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.FirebaseAuth;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -25,19 +33,22 @@ public class ListActivity extends AppCompatActivity implements ItemClickListener
     final String JSON_URL = "https://raw.githubusercontent.com/Purukitto/pokemon-data.json/master/pokedex.json";
     JsonArrayRequest request;
     RecyclerView recyclerView;
+    RequestQueue requestQueue;
     RecyclerViewAdapter adapter;
     ArrayList<PokemonModel> pokemonModels;
+    FirebaseAuth mAuth;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView( R.layout.activity_list);
+        setContentView(R.layout.activity_list);
+        mAuth = FirebaseAuth.getInstance();
 
         pokemonModels = new ArrayList<>();
 
         recyclerView = findViewById(R.id.listRecyclerView);
         parseJSON();
-        RequestQueue requestQueue = Volley.newRequestQueue(this);
+        requestQueue = Volley.newRequestQueue(this);
         requestQueue.add(request);
 
         EditText searchBar = findViewById(R.id.searchBar);
@@ -57,6 +68,32 @@ public class ListActivity extends AppCompatActivity implements ItemClickListener
                 filter(editable.toString());
             }
         });
+    }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+
+        //Firebase SignOut
+        mAuth.signOut();
+
+        //Google SignOut
+        GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+                .requestIdToken(getString(R.string.default_web_client_id))
+                .requestEmail()
+                .build();
+        GoogleSignInClient gsc = GoogleSignIn.getClient(this, gso);
+        gsc.signOut()
+                .addOnCompleteListener(this, new OnCompleteListener<Void>() {
+                    @Override
+                    public void onComplete(@NonNull Task<Void> task) {
+                    }
+                });
+
+        //Facebook SignOut
+        LoginManager.getInstance().logOut();
+
+    finish();
     }
 
     private void filter(String query) {
@@ -120,7 +157,7 @@ public class ListActivity extends AppCompatActivity implements ItemClickListener
                     String pokeName = nameObj.getString("english");
 
                     // Parse Image
-                    String imgStr = pokeObj.getString("thumbnail");
+                    String imgStr = pokeObj.getJSONObject("image").getString("thumbnail");
 
                     // Parse Description
                     String descriptionStr = pokeObj.getString("description");
@@ -165,7 +202,7 @@ public class ListActivity extends AppCompatActivity implements ItemClickListener
 
                     // Create model using parsed data and add to list
                     pokemonModels.add(new PokemonModel(pokeName, dexNum, descriptionStr, imgStr, pokeType, pokeAbility, pokeEvolution, pokeStats));
-                    // System.out.println(dexNum + " " + pokeName);
+                    System.out.println(dexNum + " " + pokeName);
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
