@@ -1,7 +1,7 @@
 # Pokedex
 Java based Android PokeDex application.
 I used Google's Firebase cloud DB for user authentication means. Users can register and sign in via email, or use their Facebook or Google
-account the sign in.
+account to sign in.
 The app parses data from an online, externally maintained, JSON database. The Volley library was used to achieve HTML URL connections, 
 as it provides quick and easy access to online resources. The data that is parsed is then stored locally within a object ArrayList, 
 which will contain all the Pokemon within the database. Information stored within said database includes item such as name, ID, 
